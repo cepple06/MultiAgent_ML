@@ -1,0 +1,39 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="first_tb3"  default="tb3_0"/>
+  <arg name="first_tb3_x_pos" default="-2.0"/>
+  <arg name="first_tb3_y_pos" default="-.5"/>
+  <arg name="first_tb3_z_pos" default=" 0.0"/>
+  <arg name="first_tb3_yaw"   default=" 1.57"/>
+  <arg name="use_sim_time" value="true"/>
+  
+  
+  
+
+
+  
+  <!-- Namespace for the first robot -->
+  <group ns = "$(arg first_tb3)">
+    
+    <!-- Pass the tf_prefix argument to the robot description -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro tf_prefix:=$(arg first_tb3)/" />
+    <param name="tf_prefix" value="$(arg first_tb3)" />
+    <!-- Robot State Publisher -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+
+    </node>
+    
+  
+    
+    <!-- Gazebo Model Spawner -->
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" 
+          args="-urdf -model $(arg first_tb3) -x $(arg first_tb3_x_pos) -y $(arg first_tb3_y_pos) -z $(arg first_tb3_z_pos) -param robot_description" />
+    
+
+      
+
+  </group>
+</launch>
+

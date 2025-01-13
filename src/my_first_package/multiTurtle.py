@@ -11,7 +11,7 @@ def launch_multiple_files():
     x = int(input("How many robots? "))
 
     for i in range(x):
-        launch_file = "/home/gov_laptop/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/launch/singleTurtlebot.launch"
+        launch_file = "/home/gov_laptop/MultiAgent_ML/src/turtlebot3_simulations/turtlebot3_gazebo/launch/singleTurtlebot.launch"
         # Launch arguments should be passed as a list of strings, not tuples
         launch_args = ['first_tb3:=tb3_' + str(i), 'first_tb3_x_pos:=' + str(i) + ".0"]
 
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     rospy.loginfo("Node started")
 
     # Start the world first
-    world_launch_file = "/home/gov_laptop/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/launch/world.launch"
+    world_launch_file = "/home/gov_laptop/MultiAgent_ML/src/turtlebot3_simulations/turtlebot3_gazebo/launch/world.launch"
     world_launch = roslaunch.parent.ROSLaunchParent(uuid, [world_launch_file])
     world_launch.start()
     time.sleep(2)  # Add a delay to ensure proper initialization
