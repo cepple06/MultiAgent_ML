@@ -1,6 +1,6 @@
 MAKE SURE YOU CHANGE FILE PATHS TO YOUR COMPUTER IN FILES!!!
 
-# MultiAgent_ML
+# Turtlebot3_MultiAgent_ROS
 Creating a dashboard to control several robotic platforms through ROS, simplifying multi-agent machine learning
 
 For this project we used ROS Noetic with Rviz and Turtlebot3
