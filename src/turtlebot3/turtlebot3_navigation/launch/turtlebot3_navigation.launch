@@ -18,11 +18,12 @@
   </include>
 
   <!-- Map server -->
-  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+  <!--node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/-->
 
   <!-- AMCL -->
   <include file="$(find turtlebot3_navigation)/launch/amcl.launch">
   	<arg name = "scan_topic" value = "/$(arg first_tb3)/scan"/>
+  	<arg name="first_tb3" value="$(arg first_tb3)"/>
   </include>
 
   <!-- move_base --> 
@@ -36,7 +37,7 @@
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation1.rviz"/>
           
         
   </group>
