@@ -1,3 +1,4 @@
+**YOU MAY HAVE TO EDIT FILE PATHS IN REPO TO MATCH YOUR FILE STRUCTURE**
 Creating a dashboard to control several robotic platforms through ROS, simplifying multi-agent machine learning
 
 For this project we used ROS Noetic with Rviz and Turtlebot3
