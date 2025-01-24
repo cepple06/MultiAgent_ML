@@ -27,14 +27,14 @@
       <remap from="cmd_vel" to="/$(arg first_tb3)/cmd_vel" />
       <!--remap from="odom" to="/$(arg first_tb3)/odom" /-->
       <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
-      <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>
+      <param name="global_costmap/global_frame" value="$(arg first_tb3)/$(arg global_frame_id)"/>
       <param name="global_costmap/robot_base_frame" value="$(arg first_tb3)/$(arg base_frame_id)"/>
       <param name="local_costmap/global_frame" value="$(arg first_tb3)/$(arg odom_frame_id)"/>
       <param name="local_costmap/robot_base_frame" value="$(arg first_tb3)/$(arg base_frame_id)"/>
       <param name="DWAPlannerROS/global_frame_id" value="$(arg first_tb3)/$(arg odom_frame_id)"/>
       <remap from="/move_base_simple/goal"             to="/$(arg first_tb3)/move_base_simple/goal"/>
       <remap from="/move_base" to="/$(arg first_tb3)/move_base"/>
-      <remap from="map" to="/map" />
+      <remap from="map" to="/$(arg first_tb3)/map" />
     </node>
   </group>
 </launch>
