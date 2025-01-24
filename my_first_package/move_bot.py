@@ -6,7 +6,7 @@ import tf
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import numpy as np
 
-def main(robot_name):
+def main(robot_name,x,y):
     # Initialize the ROS node
     rospy.init_node("move_robot_node")
 
@@ -29,8 +29,8 @@ def main(robot_name):
     rospy.logwarn("Sending new goal point.")
     
     # Set the target position and orientation
-    goal.target_pose.pose.position.x = .5
-    goal.target_pose.pose.position.y = -1
+    goal.target_pose.pose.position.x = x
+    goal.target_pose.pose.position.y = y
     goal.target_pose.pose.orientation.w = 1  # Neutral orientation
 
     # Send the goal to the move_base server
@@ -46,6 +46,6 @@ def main(robot_name):
 # Run the script
 if __name__ == "__main__":
     try:
-        main("tb3_0")
+        main("tb3_0",.5,-1)
     except:
         exit()
