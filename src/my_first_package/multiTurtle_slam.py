@@ -4,7 +4,7 @@ from geometry_msgs.msg import Twist
 import roslaunch
 import time
 import rospy
-from geometry_msgs.msg import Twist, Point, Quaternion
+from geometry_msgs.msg import Twist, Point, Quaternion, PoseStamped
 import tf
 from math import radians, copysign, sqrt, pow, pi, atan2
 from tf.transformations import euler_from_quaternion
@@ -104,6 +104,34 @@ def update_rviz_config(robot_number):
             file.write(line)
 
     print(f'Updated RViz config for robot {robot_number} with 2D Nav Goal topic: {new_topic}')
+def send_goal(robot_namespace, x, y, theta):
+    # Publisher for the selected robot's goal topic
+    goal_topic = f"/{robot_namespace}/move_base_simple/goal"
+    goal_pub = rospy.Publisher(goal_topic, PoseStamped, queue_size=10)
+
+    # Wait for the publisher to connect
+    rospy.sleep(1)
+
+    # Create the PoseStamped message
+    goal_msg = PoseStamped()
+    goal_msg.header.frame_id = "map"
+    goal_msg.header.stamp = rospy.Time.now()
+
+    # Set the position
+    goal_msg.pose.position.x = x
+    goal_msg.pose.position.y = y
+    goal_msg.pose.position.z = 0.0
+
+    # Set the orientation (quaternion)
+    quaternion = tf.transformations.quaternion_from_euler(0, 0, theta)
+    goal_msg.pose.orientation.x = quaternion[0]
+    goal_msg.pose.orientation.y = quaternion[1]
+    goal_msg.pose.orientation.z = quaternion[2]
+    goal_msg.pose.orientation.w = quaternion[3]
+
+    # Publish the goal
+    goal_pub.publish(goal_msg)
+    rospy.loginfo(f"Goal sent to {robot_namespace}: x={x}, y={y}, theta={theta}")
 
 if __name__ == '__main__':
     rospy.init_node("multi_robot_thing")
@@ -128,16 +156,10 @@ if __name__ == '__main__':
 
     while done != "True":
         robot_name = input("Which robot would you like to control? Enter 0-Max Robots: ")
-        pubV = rospy.Publisher("/tb3_" + str(robot_name) + "/cmd_vel", Twist, queue_size=10)
-        
-        x = float(input("x coordinate? "))
-        y = float(input("y coordinate? "))
 
-        twist = Twist()
-        twist.linear.x = x
-        twist.angular.z = y  # Changed from angular.y to angular.z for TurtleBot movement
-
-        pubV.publish(twist)
+        goal_topic = "tb3_"+str(robot_name)
+        send_goal(goal_topic, 2,2,10)
+   
         done = input("Are you done? Enter True or False: ")
     
     rospy.spin()

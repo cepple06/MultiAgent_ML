@@ -91,7 +91,7 @@
         </geometry>
       </visual>
 
-      <sensor name="hls_lfcd_lds" type="ray">
+    <sensor name="hls_lfcd_lds" type="ray">
         <always_on>1</always_on>
         <visualize>0</visualize>
         <pose>-0.032 0 0.171 0 0 0</pose>
